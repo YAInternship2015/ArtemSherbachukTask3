@@ -13,7 +13,7 @@
 
  Video 
 
-![YalantisTask3](http://assets.vg247.com/current//2015/04/youtube_flat_red.png)](https://youtu.be/dimHs2bcgX8)
+[![YalantisTask3](http://assets.vg247.com/current//2015/04/youtube_flat_red.png)](https://youtu.be/dimHs2bcgX8)
 
 
 ***
