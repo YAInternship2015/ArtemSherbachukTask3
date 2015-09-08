@@ -24,6 +24,22 @@
 
 @end
 
+
+@implementation UIImage (Extentions)
+
++ (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSLog(@"RESIZED");
+    return destImage;
+}
+
+@end
+
+
+
 const NSTimeInterval kCellActionAnimationTime = 0.4;
 
 
@@ -80,11 +96,14 @@ const NSTimeInterval kCellActionAnimationTime = 0.4;
 
             ASPublisherEntity *recordInDB = [self.fetchedResultController objectAtIndexPath:indexPath];
             if (recordInDB) {
+
                 UIImage *imageData = [UIImage imageWithData:recordInDB.publisherImage];
                 NSString *string = recordInDB.publisherName;
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     cell.publisherTitle.text = string;
-                    cell.publisherImage.image = imageData;
+                    cell.publisherImage.image = [UIImage imageWithImage:imageData
+                                                          convertToSize:cell.publisherImage.bounds.size];//resize image for best performance scrolling
                     cell.backgroundColor = indexPath.row % 2 ? [UIColor whiteColor] : [[UIColor lightGrayColor]
                                                                                        colorWithAlphaComponent:0.2];
                 });
