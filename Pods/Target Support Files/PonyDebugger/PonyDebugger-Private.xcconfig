@@ -1,0 +1,7 @@
+#include "PonyDebugger.xcconfig"
+ENABLE_NS_ASSERTIONS = ${PONYDEBUGGER_ENABLE_NS_ASSERTIONS}
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/PonyDebugger" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/MagicalRecord" "${PODS_ROOT}/Headers/Public/MagicalRecord/MagicalRecord" "${PODS_ROOT}/Headers/Public/PonyDebugger" "${PODS_ROOT}/Headers/Public/SocketRocket"
+OTHER_LDFLAGS = ${PONYDEBUGGER_OTHER_LDFLAGS}
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

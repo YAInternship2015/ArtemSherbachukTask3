@@ -73,6 +73,10 @@
 - (NSFetchedResultsController *)setupFetchResultController {
 
     NSFetchRequest *fr = [[NSFetchRequest alloc] initWithEntityName:@"ASPublisherEntity"];
+
+        //Reduse memory usage. Value amout of items shown on screen.
+    [fr setFetchBatchSize:20];
+
     [fr setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"created" ascending:YES]]];
 
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc]

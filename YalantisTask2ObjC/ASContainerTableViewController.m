@@ -76,13 +76,20 @@ const NSTimeInterval kCellActionAnimationTime = 0.4;
 
 - (void)configureCell:(ASPublisherTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
-    ASPublisherEntity *recordInDB = [self.fetchedResultController objectAtIndexPath:indexPath];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-    cell.publisherImage.image = [UIImage imageWithData:recordInDB.publisherImage];
-    cell.publisherTitle.text = recordInDB.publisherName;
-
-    cell.backgroundColor = indexPath.row % 2 ? [UIColor whiteColor] : [[UIColor lightGrayColor]
-                                                                       colorWithAlphaComponent:0.2];
+            ASPublisherEntity *recordInDB = [self.fetchedResultController objectAtIndexPath:indexPath];
+            if (recordInDB) {
+                UIImage *imageData = [UIImage imageWithData:recordInDB.publisherImage];
+                NSString *string = recordInDB.publisherName;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cell.publisherTitle.text = string;
+                    cell.publisherImage.image = imageData;
+                    cell.backgroundColor = indexPath.row % 2 ? [UIColor whiteColor] : [[UIColor lightGrayColor]
+                                                                                       colorWithAlphaComponent:0.2];
+                });
+            }
+        });
 }
 
 

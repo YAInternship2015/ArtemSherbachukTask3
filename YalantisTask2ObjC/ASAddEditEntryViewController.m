@@ -103,6 +103,7 @@
         /// Create Entity
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ASPublisherEntity"
                                                          inManagedObjectContext:self.coreDataManager.managedObjectContext];
+
         /// Initialize Record
     ASPublisherEntity *newRecord = [[ASPublisherEntity alloc]
                                     initWithEntity:entityDescription
@@ -110,8 +111,8 @@
 
         /// Populate Record
     newRecord.publisherName = name;
-    newRecord.publisherImage = UIImagePNGRepresentation([UIImage imageNamed:[self randomImagePath]]);
     newRecord.created = [NSDate date];
+    newRecord.publisherImage = UIImageJPEGRepresentation([UIImage imageNamed:[self randomImagePath]], 50);
 
     [self.coreDataManager saveManagedObjectContext];
     [self dismissViewControllerAnimated:YES completion:nil];

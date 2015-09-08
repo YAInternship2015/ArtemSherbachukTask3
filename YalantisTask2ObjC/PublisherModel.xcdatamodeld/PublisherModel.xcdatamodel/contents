@@ -6,6 +6,6 @@
         <attribute name="publisherName" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ASPublisherEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ASPublisherEntity" positionX="0" positionY="0" width="128" height="90"/>
     </elements>
 </model>

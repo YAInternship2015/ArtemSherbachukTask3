@@ -10,6 +10,9 @@
 #import "ASCoreDataManager.h"
 #import "ASContainerViewController.h"
 
+    ///debug
+#import "PDDebugger.h"
+
 @interface AppDelegate ()
 
 @property(nonatomic, strong) ASCoreDataManager *coreDataManager;
@@ -34,6 +37,15 @@
 
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
 
+
+    /*
+        ///Debugging
+    PDDebugger *debugger = [PDDebugger defaultInstance];
+    [debugger connectToURL:[NSURL URLWithString:@"ws://localhost:9000/device"]];
+    [debugger enableCoreDataDebugging];
+    [debugger addManagedObjectContext:self.coreDataManager.managedObjectContext withName:@"My MOC"];
+    [debugger enableViewHierarchyDebugging];
+     */
     return YES;
 }
 

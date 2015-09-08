@@ -84,7 +84,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-com.apple.CoreData.SyntaxColoredLogging YES"
+            argument = "-com.apple.CoreData.ThreadingDebug 1"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-com.apple.CoreData.SyntaxColoredLogging 1"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

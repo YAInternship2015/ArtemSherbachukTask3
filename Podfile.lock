@@ -1,0 +1,16 @@
+PODS:
+  - MagicalRecord (2.3.0)
+  - PonyDebugger (0.4.5):
+    - SocketRocket
+  - SocketRocket (0.4)
+
+DEPENDENCIES:
+  - MagicalRecord
+  - PonyDebugger (~> 0.4.3)
+
+SPEC CHECKSUMS:
+  MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
+  PonyDebugger: 1c60f7c876bdb6a8b6bf0f0269087f8a234fafa7
+  SocketRocket: 01443933b7bc362621325f4607b80b4286a99707
+
+COCOAPODS: 0.38.2

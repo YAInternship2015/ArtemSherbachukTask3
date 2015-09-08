@@ -88,10 +88,19 @@ UICollectionViewDelegate, ASAddEditEntryViewControllerDelegate>
 
 - (void)configureCell:(ASPublisherCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
-    ASPublisherEntity *recordInDB = [self.fetchedResultController objectAtIndexPath:indexPath];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 
-    cell.publisherImage.image = [UIImage imageWithData:recordInDB.publisherImage];
-    cell.publisherTitle.text = recordInDB.publisherName;
+        ASPublisherEntity *recordInDB = [self.fetchedResultController objectAtIndexPath:indexPath];
+        if (recordInDB) {
+            UIImage *imageData = [UIImage imageWithData:recordInDB.publisherImage];
+            NSString *string = recordInDB.publisherName;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.publisherTitle.text = string;
+                cell.publisherImage.image = imageData;
+            });
+        }
+    });
+
 }
 
 

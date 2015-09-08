@@ -1,0 +1,2 @@
+PONYDEBUGGER_ENABLE_NS_ASSERTIONS = YES
+PONYDEBUGGER_OTHER_LDFLAGS = -framework "CoreData" -framework "CoreGraphics"
