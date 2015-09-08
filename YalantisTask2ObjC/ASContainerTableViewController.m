@@ -25,6 +25,7 @@
 @end
 
 
+    //возможно нужно было вынести в отдельный класс, но я посчитал что кода слишком мало и чтобы вас не запутывать
 @implementation UIImage (Extentions)
 
 + (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
@@ -68,6 +69,7 @@ const NSTimeInterval kCellActionAnimationTime = 0.4;
     [super viewWillAppear:animated];
 
         //toggle delegate when vc is change each time
+        //Я не знаю правильная ли эта мысль но я посчитал что каждый раз при загруске ВьюКонтр. устанавливается кто будут делегат
     self.fetchedResultController.delegate = self;
     [self.tableView reloadData];
 }
