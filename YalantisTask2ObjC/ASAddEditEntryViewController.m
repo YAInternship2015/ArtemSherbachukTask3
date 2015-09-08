@@ -114,8 +114,6 @@
         /// Create Entity
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ASPublisherEntity"
                                                          inManagedObjectContext:self.coreDataManager.managedObjectContext];
-
-
             /// Initialize Record
         ASPublisherEntity *newRecord = [[ASPublisherEntity alloc]
                                         initWithEntity:entityDescription
@@ -130,6 +128,7 @@
         newRecord.publisherImage = UIImagePNGRepresentation([UIImage imageWithImage:randomImage
                                                                       convertToSize:smallImageSize]);///image with small optimization. It is to big for coreData binary storage. And as result that scroll in cell is not so smooth. I tested with 1000 obj.
     [self.coreDataManager saveManagedObjectContext];
+
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
