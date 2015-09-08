@@ -8,6 +8,19 @@
 
 #import "ASAddEditEntryViewController.h"
 
+@implementation UIImage (Extentions)
+
++ (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return destImage;
+}
+
+@end
+
+
 
 @interface ASAddEditEntryViewController () <UITextFieldDelegate>
 
@@ -16,8 +29,6 @@
 @property (nonatomic, strong) NSString *randomImagePath;
 
 @end
-
-
 
 
 
@@ -104,18 +115,23 @@
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ASPublisherEntity"
                                                          inManagedObjectContext:self.coreDataManager.managedObjectContext];
 
-        /// Initialize Record
-    ASPublisherEntity *newRecord = [[ASPublisherEntity alloc]
-                                    initWithEntity:entityDescription
-                                    insertIntoManagedObjectContext:self.coreDataManager.managedObjectContext];
 
-        /// Populate Record
-    newRecord.publisherName = name;
-    newRecord.created = [NSDate date];
-    newRecord.publisherImage = UIImageJPEGRepresentation([UIImage imageNamed:[self randomImagePath]], 50);
+            /// Initialize Record
+        ASPublisherEntity *newRecord = [[ASPublisherEntity alloc]
+                                        initWithEntity:entityDescription
+                                        insertIntoManagedObjectContext:self.coreDataManager.managedObjectContext];
 
+            /// Populate Record
+        newRecord.publisherName = name;
+        newRecord.created = [NSDate date];
+
+        UIImage *randomImage = [UIImage imageNamed:[self randomImagePath]];
+        CGSize smallImageSize = CGSizeMake(100, 100);
+        newRecord.publisherImage = UIImagePNGRepresentation([UIImage imageWithImage:randomImage
+                                                                      convertToSize:smallImageSize]);///image with small optimization. It is to big for coreData binary storage. And as result that scroll in cell is not so smooth. I tested with 1000 obj.
     [self.coreDataManager saveManagedObjectContext];
     [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 

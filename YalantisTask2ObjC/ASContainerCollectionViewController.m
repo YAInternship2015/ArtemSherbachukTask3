@@ -14,18 +14,6 @@
 #import "ASPublisherEntity.h"
 
 
-@implementation UIImage (Extentions)
-
-+ (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
-    UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return destImage;
-}
-
-@end
-
 
 const NSTimeInterval cellActionAnimation = 0.4;
 
@@ -111,8 +99,7 @@ UICollectionViewDelegate, ASAddEditEntryViewControllerDelegate>
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 cell.publisherTitle.text = string;
-                cell.publisherImage.image = [UIImage imageWithImage:imageData
-                                                      convertToSize:cell.publisherImage.bounds.size];
+                cell.publisherImage.image = imageData;
             });
         }
     });
