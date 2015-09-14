@@ -14,6 +14,7 @@
 - (void)awakeFromNib {
     //visual style for userImage
 
+#warning все кастомные цвета должны быть вынесены в категорию UIColor, все цифры должны быть константами. То же самое касается CollectionViewCell
   self.publisherImage.layer.cornerRadius = 3;
   self.publisherImage.layer.borderWidth = 1;
   self.publisherImage.layer.borderColor = [UIColor grayColor].CGColor;

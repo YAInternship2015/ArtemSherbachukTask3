@@ -26,6 +26,7 @@
 
     self.coreDataManager = [ASCoreDataManager new];
 
+#warning получение конкретного контроллера можно спрятать в категорию на UIStoryboard
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ASContainerViewController *controller = (ASContainerViewController *)[sb instantiateViewControllerWithIdentifier:@"contrinerVC"];
 
@@ -38,6 +39,7 @@
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
 
 
+#warning всегда удаляйте закомментированный код
     /*
         ///Debugging
     PDDebugger *debugger = [PDDebugger defaultInstance];

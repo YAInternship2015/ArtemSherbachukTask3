@@ -11,6 +11,7 @@
 
 @interface ASContainerViewController : UIViewController
 
+#warning в *.h достаточно показать только сеттер
 @property(nonatomic, strong) ASCoreDataManager *coreDataManager;
 
 @end

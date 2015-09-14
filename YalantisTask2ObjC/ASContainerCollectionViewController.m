@@ -41,6 +41,7 @@ UICollectionViewDelegate, ASAddEditEntryViewControllerDelegate>
     [super viewDidLoad];
 
     [self setupLongPressGestureForDeletingCell];
+#warning "магические" числа
     self.deleteViewHeightConstraint.constant = 0;
     self.showDeleteSuccedImageConstraint.constant = -100;
 }
@@ -49,6 +50,7 @@ UICollectionViewDelegate, ASAddEditEntryViewControllerDelegate>
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+#warning зачем задавать делегат и вызывыть reloadData при каждом появлении? Делегат задается единожды, но все изменения в базе контроддер реагирует через fetchedResultController
     self.fetchedResultController.delegate = self;
     [self.collectionView reloadData];
     [self animationCollectionView];
@@ -88,7 +90,7 @@ UICollectionViewDelegate, ASAddEditEntryViewControllerDelegate>
 
 
 - (void)configureCell:(ASPublisherCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-
+#warning здесь замечаия те же, что и в табличном контроллере
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
         ASPublisherEntity *recordInDB = [self.fetchedResultController objectAtIndexPath:indexPath];
@@ -198,6 +200,7 @@ UICollectionViewDelegate, ASAddEditEntryViewControllerDelegate>
     switch (type) {
         case NSFetchedResultsChangeInsert:
             [self.collectionView reloadData];
+#warning здесь также почему-то reloadData
             //[self.collectionView insertItemsAtIndexPaths:@[newIndexPath]];
             break;
         case NSFetchedResultsChangeDelete:
@@ -223,7 +226,7 @@ UICollectionViewDelegate, ASAddEditEntryViewControllerDelegate>
 
 - (void)cancelButtonDidTouchForEditingPublisherIn:(ASAddEditEntryViewController *)ctrl
                                            withIndexPathCell:(NSIndexPath *)path {
-
+#warning ситуация, аналогичная такой же в табличном контроллере
     UICollectionViewCell* cell = [self.collectionView cellForItemAtIndexPath:path];
 
     __block __weak ASContainerCollectionViewController *BlockSelf = self;

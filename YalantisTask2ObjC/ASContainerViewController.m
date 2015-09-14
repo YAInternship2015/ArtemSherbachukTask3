@@ -12,6 +12,7 @@
 #import "ASContainerCollectionViewController.h"
 
 
+#warning категории всегда выносите в отдельные файлы
 @implementation UIColor (Extentions)
 
 + (UIColor *)navigationBarGreenColor {
@@ -30,8 +31,10 @@
 
 
 @property (nonatomic, weak) IBOutlet UINavigationBar *navigationBar;
+#warning ASContainerTableViewController *firstVC;
 @property (nonatomic, strong) ASContainerTableViewController* firstVC;
 @property (nonatomic, strong) ASContainerCollectionViewController* secondVC;
+#warning плозое имя переменной, неясно, что за данные в ней лежат
 @property (nonatomic, assign, setter=setActiveViewCtrl:) BOOL isFirstVC;
 
 
@@ -43,7 +46,7 @@
 
 @implementation ASContainerViewController
 
-
+#warning в прошлый раз я уже писал про большое количество пустых строк. Они не нужны
 
 
 #pragma mark -
@@ -52,6 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+#warning получение конкретного контроллера можно спрятать в категорию на UIStoryboard
     UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.firstVC  = [sb instantiateViewControllerWithIdentifier:@"TableView"];
     self.secondVC = [sb instantiateViewControllerWithIdentifier:@"CollectionView"];
@@ -60,6 +64,7 @@
     if (self.coreDataManager) {
             //I decide to create one NSFetchedResultsController object and pass it to parameters first and second vc. And CoreDataManager obj to;
         NSFetchedResultsController *frc = [self setupFetchResultController];
+#warning 
         self.firstVC.fetchedResultController = frc;
         self.secondVC.fetchedResultController = frc;
         self.firstVC.coreDataManager = self.coreDataManager;
@@ -75,6 +80,7 @@
     NSFetchRequest *fr = [[NSFetchRequest alloc] initWithEntityName:@"ASPublisherEntity"];
 
         //Reduse memory usage. Value amout of items shown on screen.
+#warning цифру надо объявить константой
     [fr setFetchBatchSize:20];
 
     [fr setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"created" ascending:YES]]];
@@ -103,8 +109,9 @@
     self.isFirstVC = _isFirstVC;//add synthesize var to param. and invoke method setter
 }
 
-
+#warning опечатка в имени
 - (IBAction)addNewEntryButonDidTouch:(UIBarButtonItem *)sender {
+#warning имя segue "AddEditEntrySegue" упоминается дважды в данном классе, объявите его константой и используйте ее
     [self performSegueWithIdentifier:@"AddEditEntrySegue" sender:self];
 }
 
@@ -116,12 +123,14 @@
 #pragma mark CONTAINER LOGIC
 
     //toggle layout mode
+#warning не нужно сокращать controller до Ctrl, в obj-c не экономят на длине имен селекторов
 - (void)setActiveViewCtrl:(BOOL)isFirstVC
 {
     if (isFirstVC) {
         [self removeVC:self.firstVC];
         [self displayVC:self.secondVC];
             //change bar collor
+#warning "окрашивание" navigationBar вынесите в отдельный метод, который будет принимать цвет параметром. Длительность анимации надо объявить константой в этом методе
         [UIView animateWithDuration:0.2 animations:^{
             self.navigationBar.barTintColor = [UIColor navigationBarBlueColor];
         }];

@@ -13,6 +13,7 @@
 @interface ASContainerCollectionViewController : UIViewController
 
 @property(nonatomic, strong) ASCoreDataManager *coreDataManager;
+#warning NSFetchedResultsController должен быть в датасорсе, а не в контроллере. Контроллер ничего не ложен знать об источнике данных. Это касается и табличного контроллера
 @property(nonatomic, strong) NSFetchedResultsController *fetchedResultController;
 
 @end

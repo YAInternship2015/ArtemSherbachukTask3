@@ -8,6 +8,7 @@
 
 #import "ASAddEditEntryViewController.h"
 
+#warning категорию вынесите в от
 @implementation UIImage (Extentions)
 
 + (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
@@ -48,6 +49,7 @@
 
   self.textField.delegate = self;
 
+#warning вообще имя editASPublisherEntity - плохое. Лучше publisherToEdit
   if (self.editASPublisherEntity != nil) {
       [self configEditEntryScreen];
   } else {
@@ -57,6 +59,7 @@
 }
 
 - (void)configEditEntryScreen {
+#warning строку следует перенести в Localizable.strings. Это касается и следующего метода
     self.navigationItemBar.title = @"Edit Entry";
     self.textField.text = self.editASPublisherEntity.publisherName;
     self.doneButton.enabled = true;
@@ -67,7 +70,7 @@
     self.doneButton.enabled = false;
 }
 
-
+#warning такой метод следует удалить
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 //  [self.textField becomeFirstResponder];
@@ -95,6 +98,7 @@
   if (self.editASPublisherEntity) {
       [self doneEditASPublisherEntityWithChangedName:name];
   } else {
+#warning зачем эти tick/tock?
       TICK;
       [self doneAddNewASPublisherEntityWithName:name];
       TOCK;
@@ -102,6 +106,7 @@
 
 }
 
+#warning в именах методов не нужно использовать префикс приложения. И имя метода не самое удачное, лучше updatePublisherWithName:
 - (void)doneEditASPublisherEntityWithChangedName:(NSString *)name {
     self.editASPublisherEntity.publisherName = name;
     [self.delegate editASPublisherEntityDoneIn:self
@@ -109,7 +114,7 @@
                               withAnimatedCell:self.indexPathForCellAnimation];
 }
 
-
+#warning лучше назвать createPublisherWithName:
 - (void)doneAddNewASPublisherEntityWithName:(NSString *)name {
         /// Create Entity
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ASPublisherEntity"
@@ -124,6 +129,7 @@
         newRecord.created = [NSDate date];
 
         UIImage *randomImage = [UIImage imageNamed:[self randomImagePath]];
+#warning ресайз картинки можно спрятать в категории к UIImage в методе вроде resizedImageWithName:
         CGSize smallImageSize = CGSizeMake(100, 100);
         newRecord.publisherImage = UIImagePNGRepresentation([UIImage imageWithImage:randomImage
                                                                       convertToSize:smallImageSize]);///image with small optimization. It is to big for coreData binary storage. And as result that scroll in cell is not so smooth. I tested with 1000 obj.
@@ -148,9 +154,10 @@ replacementString:(NSString *)string {
 
   NSString* oldText = self.textField.text;
   NSString* newText = [oldText stringByReplacingCharactersInRange:range withString:string];
-
+#warning валидация должна быть инкапсулирована в отдельном объекте-валидаторе
   self.doneButton.enabled = newText.length > 2;
 
+#warning не true, а YES
   return true;
 }
 
@@ -162,6 +169,7 @@ replacementString:(NSString *)string {
 #pragma mark -
 #pragma mark Test method
 
+#warning этот метод следует вынести в категорию UIImage (ASRandomImage)
 - (NSString *)randomImagePath {
     switch (arc4random_uniform(7)) {
         case 1:

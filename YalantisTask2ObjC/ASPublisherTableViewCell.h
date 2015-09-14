@@ -11,7 +11,7 @@
 @interface ASPublisherTableViewCell : UITableViewCell
 
 
-
+#warning аутлеты необходимо перенести в *.m файл, а заполнение моделью должно происходить в методе вроде setupWithPublisher: внутри ячейки. То же самое касается CollectionViewCell
 @property (nonatomic, weak) IBOutlet UIImageView *publisherImage;
 @property (nonatomic, weak) IBOutlet UILabel *publisherTitle;
 

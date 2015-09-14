@@ -79,9 +79,9 @@ const NSTimeInterval kCellActionAnimationTime = 0.4;
 }
 
 - (void)configureCell:(ASPublisherTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-
+#warning заполнение ячейки данными должно быть инкапсулировано в самой ячейке
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
+#warning здесь таится потенциальный креш. Вы работаете с моделью, полученой в контексте главного потока (которая из fetchedResultController на главном контексте), в фоновом потоке. Если операции не очень "тяжелые", то делайте их на главном потоке, если же хотите работать именно в фоне, то получайте модель в фоновом контексте по ее objectID. Также, при быстром скролле dispatch_async будет создавать новый поток для каждой ячейки, что "отормозит" приложение еще больше, чем если бы все работало на главном потоке
             ASPublisherEntity *recordInDB = [self.fetchedResultController objectAtIndexPath:indexPath];
             if (recordInDB) {
 
@@ -120,6 +120,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     cell.contentView.backgroundColor = [UIColor lightGreenCellCollorOnSelect];
 
+#warning цифры должны быть константами
     [self animateSelectedCell:cell withZoomX:0.4 zoomY:0.4];
 
     [self performSegueWithIdentifier:@"EditEntrySegue" sender:cell];
@@ -167,6 +168,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath  {
     switch (type) {
         case NSFetchedResultsChangeInsert:
+#warning а чего тут reloadData?
 //            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             [self.tableView reloadData];
             break;
@@ -191,9 +193,10 @@ indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPa
 #pragma mark ASAddEditEntryViewControllerDelegate
 
 - (void)cancelButtonDidTouchForEditingPublisherIn:(ASAddEditEntryViewController *)ctrl withIndexPathCell:(NSIndexPath *)indexPath {
-
+#warning вообще этот метод и следующий отличаются только первой строкой, которая есть в этом методе. Это чистой воды копи-паста. Избавьтесь от нее
         //dismiss with animation cell
     UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+#warning здесь __block не нужен, Вы же не изменяете blockSelf внутри блока. И blockSelf
     __block __weak ASContainerTableViewController *BlockSelf = self;
     [ctrl dismissViewControllerAnimated:YES completion:^{
 
@@ -231,6 +234,7 @@ indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPa
 #pragma mark Animation
 
 - (void)animationTableViewFadeIn {
+#warning здесь вновь куча "магических" чисел
     self.tableView.alpha = 0;
     self.tableView.transform = CGAffineTransformMakeScale(0.1, 0.1);
     __block __weak ASContainerTableViewController* blocSelf = self;
@@ -259,6 +263,7 @@ indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPa
 }
 
 - (void)animateSelectedCell:(UITableViewCell *)cell withZoomX:(CGFloat)x zoomY:(CGFloat)y {
+#warning здесь вновь куча "магических" чисел
     [UIView animateWithDuration:kCellActionAnimationTime delay:0 usingSpringWithDamping:0.3 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseOut animations:^{
         cell.transform = CGAffineTransformMakeScale(x, y);
     } completion:nil];
